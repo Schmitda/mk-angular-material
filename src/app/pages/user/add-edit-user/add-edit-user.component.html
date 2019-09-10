@@ -1,0 +1,35 @@
+<h1>{{ this.userForm.value._id ? 'Bearbeite' : 'Erstelle' }} ein User</h1>
+<form class="addUser" [formGroup]="userForm" (submit)="submit()">
+  <mat-form-field>
+    <input matInput formControlName="firstName" name="firstName" placeholder="Vorname">
+    <mat-error>
+      Vorname <strong>ist ein Pflichtfeld</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="lastName" name="lastName" placeholder="Nachname">
+    <mat-error>
+      Nachname <strong>ist ein Pflichtfeld</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="dateOfBirth" [matDatepicker]="dateOfBirth" placeholder="Wähle dein Geburtstag">
+    <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
+    <mat-datepicker #dateOfBirth></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="email" name="email" placeholder="email">
+    <mat-error>
+      Email <strong>ist ein Pflichtfeld</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="password" name="password" placeholder="Passwort">
+    <mat-error>
+      Passwort <strong>ist ein Pflichtfeld</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="this.userForm.invalid">Absenden</button>
+
+</form>

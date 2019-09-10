@@ -1,0 +1,19 @@
+<h1>Login</h1>
+<form class="addUser" [formGroup]="userForm" (submit)="submit()">
+  <mat-form-field>
+    <input matInput formControlName="email" name="email" placeholder="Benutzername">
+    <mat-error>
+      Benutzername <strong>ist ein Pflichtfeld</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="password" name="password" placeholder="Passwort">
+    <mat-error>
+      Passwort <strong>ist ein Pflichtfeld</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="this.userForm.invalid">Absenden</button>
+
+</form>
+

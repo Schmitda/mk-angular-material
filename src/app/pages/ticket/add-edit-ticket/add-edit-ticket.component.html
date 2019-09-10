@@ -1,0 +1,54 @@
+<h1>{{ ticket._id ? 'Bearbeite' : 'Erstelle' }} ein Ticket</h1>
+<form class="addEditTicket" #ngForm="ngForm" (submit)="safe()">
+  <mat-form-field>
+    <input matInput #subjectModel="ngModel" [(ngModel)]="ticket.subject" name="subject" placeholder="subject" required minlength="5">
+    <mat-error *ngIf="subjectModel.hasError('required')">
+      Subject <strong>ist ein Pflichtfeld</strong>
+    </mat-error>
+    <mat-error *ngIf="subjectModel.hasError('minlength')">
+      Min Anzahl Zeichen <strong>5</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput #bodyModel="ngModel" [(ngModel)]="ticket.body" name="body" placeholder="body" required></textarea>
+    <mat-error *ngIf="bodyModel.hasError('required')">
+      Body <strong>ist ein Pflichtfeld</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Fehlerart</mat-label>
+    <mat-select matNativeControl #typeModel="ngModel" [(ngModel)]="ticket.type" name="type" required>
+      <mat-option value="meschliches versagen">meschliches versagen</mat-option>
+      <mat-option value="Hardwarestörung">Hardwarestörungg</mat-option>
+      <mat-option value="Softwarestörung">Softwarestörung</mat-option>
+    </mat-select>
+    <mat-error *ngIf="typeModel.hasError('required')">
+      Type <strong>ist ein Pflichtfeld</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-slide-toggle  [(ngModel)]="ticket.urgent" name="urgent">Urgent</mat-slide-toggle>
+
+  <mat-form-field>
+    <mat-select name="status" [(ngModel)]="ticket.owner" placeholder="Zugewiesen an">
+      <mat-option *ngFor="let user of users$ | async" value="{{user._id}}">
+        {{ user.firstName}} {{ user.lastName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="ticket.status" name="status">
+      <mat-option>None</mat-option>
+      <mat-option value="Offen">Offen</mat-option>
+      <mat-option value="In Bearbeitung">In Bearbeitung</mat-option>
+      <mat-option value="Geschlossen">Geschlossen</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="ngForm.invalid">Absenden</button>
+
+</form>
